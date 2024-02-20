@@ -2,14 +2,16 @@
 
 #Installing and Loading Packages ####
 
-BiocManager::install("UniprotR")
-BiocManager::install("protti")
+# BiocManager::install("UniprotR")
+# BiocManager::install("protti")
 
 pacman::p_load("Biostrings","msa","tidyr","seqinr","UniprotR","protti")
 p_loaded("Biostrings","msa","tidyr","seqinr","UniprotR","protti")
 
 #Read in Data ####
 
+setwd("/Class020824/Homework6")
+# check out the 'here' package. Helps with directory syncing across machines
 
 UM1 <- read.table("Data/UniprotM1.csv")
 UM2 <- read.table("Data/UniprotM2.csv")
@@ -23,7 +25,8 @@ print(UM)
 #Get Gene Ontology ####
 UMGO <- GetProteinGOInfo(UM)
 
-PlotGoInfo(UMGO)
+# output plot to a new directory
+PlotGoInfo(UMGO, directorypath = "PlotGoInfo")
 
 #Get Gene Pathology ####
 UMP <-  GetPathology_Biotech(UM)
