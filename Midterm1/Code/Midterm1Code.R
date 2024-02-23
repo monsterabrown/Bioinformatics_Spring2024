@@ -9,13 +9,23 @@ p_loaded("Biostrings","msa","tidyr","seqinr","UniprotR","protti")
 
 
 #READING IN DATA ####
-#To read in the data I use the Biostrings function readDNAStringSet which allows the sequences.fasta file to be read. To allow the function to know that the sequence file is in fasta format, you use the format="fasta" argument within the function. I put this onto a variable called "PatientData", so I could use it in downstream processes. I type the variable out after to test that the function worked properly. 
+#To read in the data I use the Biostrings function readDNAStringSet which allows 
+# the sequences.fasta file to be read. To allow the function to know that the 
+# sequence file is in fasta format, you use the format="fasta" argument within the 
+# function. I put this onto a variable called "PatientData", so I could use it in 
+# downstream processes. I type the variable out after to test that the function worked properly. 
 
 PatientData <- readDNAStringSet(file="Data/sequences.fasta", format="fasta")
 PatientData
 
 #DOING THE MSA ####
-#I will use the msa function to align the sequences into an alignment matrix. I will use the argument method = "Muscle" to use Muscle algorithms for my multiple sequence alignment. I will assign this function to PD_Aligned to use it in later processes. I then write the variable on the next line to double check that the function in the previous line worked correctly. Lastly, I printed the whole alignment using the print function print with the argument show = "complete" to make sure that alignment wasn't faulty or incorrect. 
+#I will use the msa function to align the sequences into an alignment matrix. I 
+# will use the argument method = "Muscle" to use Muscle algorithms for my multiple 
+# sequence alignment. I will assign this function to PD_Aligned to use it in later 
+# processes. I then write the variable on the next line to double check that the 
+# function in the previous line worked correctly. Lastly, I printed the whole alignment 
+# using the print function print with the argument show = "complete" to make sure that 
+# alignment wasn't faulty or incorrect. 
 
 PD_Aligned <- msa(PatientData,method="Muscle")
 PD_Aligned
@@ -48,7 +58,8 @@ Hs6
 Hs6_AA <- Biostrings::translate(Hs6, genetic.code = GENETIC_CODE,no.init.codon = TRUE)
 Hs6_AA
 
-write.fasta(names = "Hs66_AA",sequences=Hs6_AA,file.out="Hs6_AA.fasta" )
+# make sure to specify output directory
+write.fasta(names = "Hs66_AA",sequences=Hs6_AA,file.out="Output/Hs6_AA.fasta" )
 
 #GETTING GENE PATHOLOGY ####
 #I first assigned the accession number that was achieved through BLASTing the Homo_sapiens_6 amino acid sequence in UniProt to the varible Hs6_A. Then I assigned the GetPathology_Biotech function to the variable hbb_P. This function allows the scraping of pathology data from UniProt. Then I printed the varible hbb_P to see the results, in which there was none. I don't think this function is very good at what it does because this type of result has happened multiple times even though the accession clearly has pathology related to it on the UniProt page.
